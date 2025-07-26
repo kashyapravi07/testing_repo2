@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="center-box">
+    <h2 class="login-heading">Event Management</h2>
+    <form action="/create_event" method="POST">
+        <input type="text" name="name" placeholder="Event Name" required>
+        <input type="date" name="date" placeholder="Event Date" required>
+        <textarea name="description" placeholder="Event Description" required></textarea>
+        <input type="text" name="location" placeholder="Event Location" required>
+        <button type="submit">Create Event</button>
+    </form>
+
+    <ul style="display: flex;flex-direction: column;">
+        {% for event in events %}
+        <div class="event-group">
+        <li style="width: 100px;max-width: 100px;text-overflow: ellipsis;overflow: hidden;">{{ event['name'] }}</li>
+        <li style="width: 100px;width: 100px;">{{ event['date'] }}</li>
+        <li style="width: 200px;max-width: 200px;text-overflow: ellipsis;overflow: hidden;">{{ event['description'] }}</li>
+        <li style="width: 200px;width: 200px;">{{ event['location'] }}</li>
+        <li style="width: 150px;"><form action="/delete_event/{{ event['_id'] }}" method="POST">
+            <button type="submit">Delete Event</button>
+        </form></li>
+        </div>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}
